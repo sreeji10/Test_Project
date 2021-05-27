@@ -90,7 +90,16 @@ reduced_X_test  = X_test.drop(cols_with_missing, axis=1)
 print("Mean Absolute Error from dropping columns with Missing Values:")
 print(score_dataset(reduced_X_train, reduced_X_test, y_train, y_test))
 #imputation
-
+#added some
+for col in cols_with_missing:
+    imputed_X_train_plus[col + '_was_missing'] = imputed_X_train_plus[col].isnull()
+    imputed_X_test_plus[col + '_was_missing'] = imputed_X_test_plus[col].isnull()
+my_imputer = SimpleImputer()
+imputed_X_train_plus = my_imputer.fit_transform(imputed_X_train_plus)
+imputed_X_test_plus = my_imputer.transform(imputed_X_test_plus)
+print("Mean Absolute Error from Imputation while Track What Was Imputed:")
+print(score_dataset(imputed_X_train_plus, imputed_X_test_plus, y_train, y_test))
+#added some
 for col in cols_with_missing:
     imputed_X_train_plus[col + '_was_missing'] = imputed_X_train_plus[col].isnull()
     imputed_X_test_plus[col + '_was_missing'] = imputed_X_test_plus[col].isnull()
